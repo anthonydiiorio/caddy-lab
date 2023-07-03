@@ -26,9 +26,9 @@ services:
     container_name: caddy
     restart: always
     environment:
-      - CLOUDFLARE_EMAIL="email"
-      - CLOUDFLARE_API_TOKEN=token
       - ACME_AGREE=true
+      - ACME_EMAIL="email"
+      - CLOUDFLARE_API_TOKEN=token
     ports:
       - "80:80"
       - "443:443"
@@ -45,11 +45,25 @@ services:
 
 ### Caddyfile
 
+To add the DNS Challenge to your site, add the following tls directive to the site block. This is useful for internal sites.
+
 ```
-tls {$CLOUDFLARE_EMAIL} { 
+tls {$ACME_EMAIL} {
   dns cloudflare {$CLOUDFLARE_API_TOKEN}
 }
 ```
+
+**Example:**
+```
+example.com {
+	reverse_proxy server:80
+	
+  tls {$ACME_EMAIL} {
+    dns cloudflare {$CLOUDFLARE_API_TOKEN}
+  }
+}
+```
+
 ## Caddy Security Headers
 
 ```
