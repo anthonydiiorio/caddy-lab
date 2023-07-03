@@ -36,11 +36,11 @@ services:
       #- "2015:2015" # Metrics
     
     volumes:
-      - /home/user/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - /home/user/caddy/caddy_security.conf:/etc/caddy/caddy_security.conf
-      - /home/user/caddy/sites:/srv
-      - /home/user/caddy/data:/data
-      - /home/user/caddy/config:/config
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/caddy_security.conf:/etc/caddy/caddy_security.conf
+      - ./caddy/sites:/srv
+      - ./caddy/data:/data
+      - ./caddy/config:/config
 ```
 
 ### Caddyfile
