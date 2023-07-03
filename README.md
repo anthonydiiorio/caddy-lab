@@ -11,7 +11,7 @@ version: "3.8"
 
 services:
   caddy:
-    image: caddy:latest
+    image: ghcr.io/anthonydiiorio/caddy-lab:latest
     container_name: caddy
     restart: always
     environment:
