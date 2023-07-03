@@ -58,7 +58,12 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
+          
+      - name: Extract base image tag
+        id: extract-tag
+        run: |
+          echo version=$(grep -oP 'FROM caddy:\K[\d.]+$' Dockerfile) >> $GITHUB_OUTPUT
+          
       # Extract metadata (tags, labels) for Docker
       # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
@@ -66,14 +71,8 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: ${{ steps.extract-tag.outputs.version }}
           flavor: latest=true
-          
-      - name: Extract base image tag
-        id: extract-tag
-        run: |
-          VERSION=$(grep -oP 'FROM caddy:\K[\d.]+$' Dockerfile)
-          # Set the output variable for future steps
-          echo "::set-output name=version::$VERSION"
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -83,9 +82,7 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: |
-            ${{ steps.meta.outputs.tags }}
-            ${{ steps.extract-tag.outputs.version }}
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
