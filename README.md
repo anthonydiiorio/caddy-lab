@@ -4,7 +4,9 @@ Caddy server with the modules I need.
 
 - Cloudflare https://github.com/caddy-dns/cloudflare
 
-```
+### Docker Compose
+
+```yaml
 version: "3.8"
 
 services:
