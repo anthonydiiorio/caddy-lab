@@ -3,7 +3,7 @@ name: Docker
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
 # separate terms of service, privacy policy, and support
-# documentation. 
+# documentation.
 
 on:
   schedule:
@@ -66,9 +66,14 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=semver,pattern={{version}}
           flavor: latest=true
+          
+      - name: Extract base image tag
+        id: extract-tag
+        run: |
+          IMAGE_NAME=$(docker inspect --format='{{index .Config.Image}}' caddy)
+          TAG=$(echo $IMAGE_NAME | cut -d':' -f2)
+          echo "::set-output name=tag::$TAG"
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
@@ -78,7 +83,9 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            ${{ steps.extract-tag.outputs.tag }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
