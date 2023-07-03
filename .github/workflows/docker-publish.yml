@@ -10,7 +10,7 @@ on:
     - cron: '0 0 * * 0'
   push:
     branches: [ "master" ]
-    tags: [ '*' ]
+    tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ "master" ]
 
@@ -65,7 +65,10 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          #images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: caddy
+          tagss: |
+            type=semver,pattern={{version}}
           flavor: latest=true
 
       # Build and push Docker image with Buildx (don't push on PR)
