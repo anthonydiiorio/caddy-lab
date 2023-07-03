@@ -1,8 +1,19 @@
 Caddy server with the modules I need.
 
-[Caddy Modules](https://caddyserver.com/download)
+## Caddy Modules
+
+[Caddy Packages & Modules](https://caddyserver.com/download)
 
 - Cloudflare https://github.com/caddy-dns/cloudflare
+
+### Cloudflare
+
+- Create an API Token https://dash.cloudflare.com/profile/api-tokens
+  - Permissions:
+    - Zone / Zone / Read
+    - Zone / DNS / Edit
+  - Zone Resources:
+    - Include: Pick the zones you want to use in your Caddyfile
 
 ### Docker Compose
 
@@ -37,5 +48,13 @@ services:
 ```
 tls {$CLOUDFLARE_EMAIL} { 
   dns cloudflare {$CLOUDFLARE_API_TOKEN}
+}
+```
+## Caddy Security Headers
+
+```
+example.com {
+	reverse_proxy server:80
+	import /etc/caddy/caddy_security.conf
 }
 ```
