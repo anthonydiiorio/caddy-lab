@@ -65,9 +65,8 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          #images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          images: caddy:latest
-          tagss: |
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
             type=semver,pattern={{version}}
           flavor: latest=true
 
