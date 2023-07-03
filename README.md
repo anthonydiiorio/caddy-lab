@@ -15,7 +15,7 @@ Caddy server with the modules I need.
   - Zone Resources:
     - Include: Pick the zones you want to use in your Caddyfile
 
-### Docker Compose
+## Docker Compose
 
 ```yaml
 version: "3.8"
@@ -42,7 +42,9 @@ services:
       - ./caddy/config:/config
 ```
 
-### Caddyfile
+## Caddyfile
+
+### Cloudflare DNS-01 Challenge
 
 To add the DNS Challenge to your site, add the following tls directive to the site block. This is useful for internal sites.
 
@@ -63,7 +65,7 @@ example.com {
 }
 ```
 
-## Caddy Security Headers
+### Caddy Security Headers
 
 ```
 example.com {
