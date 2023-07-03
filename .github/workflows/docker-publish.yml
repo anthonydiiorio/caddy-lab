@@ -71,9 +71,9 @@ jobs:
       - name: Extract base image tag
         id: extract-tag
         run: |
-          IMAGE_NAME=$(docker inspect --format='{{index .Config.Image}}' caddy)
-          TAG=$(echo $IMAGE_NAME | cut -d':' -f2)
-          echo "::set-output name=tag::$TAG"
+          VERSION=$(grep -oP 'FROM caddy:\K[\d.]+$' Dockerfile)
+          # Set the output variable for future steps
+          echo "::set-output name=version::$VERSION"
 
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
