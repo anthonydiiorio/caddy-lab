@@ -37,7 +37,6 @@ services:
     
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ./caddy/caddy_security.conf:/etc/caddy/caddy_security.conf
       - ./caddy/sites:/srv
       - ./caddy/data:/data
       - ./caddy/config:/config
