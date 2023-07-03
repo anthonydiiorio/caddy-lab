@@ -10,8 +10,7 @@ on:
     - cron: '0 0 * * 0'
   push:
     branches: [ "master" ]
-    # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+    tags: [ '*' ]
   pull_request:
     branches: [ "master" ]
 
