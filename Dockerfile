@@ -1,9 +1,9 @@
-FROM caddy:builder AS builder
+FROM caddy:2.6.4-builder AS builder
 
 RUN xcaddy build \
     --with github.com/caddy-dns/cloudflare
 
-FROM caddy:latest
+FROM caddy:2.6.4
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 COPY ./caddy_security.conf /etc/caddy/caddy_security.conf
