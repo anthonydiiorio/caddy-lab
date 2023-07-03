@@ -31,3 +31,11 @@ services:
       - /home/user/caddy/data:/data
       - /home/user/caddy/config:/config
 ```
+
+### Caddyfile
+
+```
+tls {$CLOUDFLARE_EMAIL} { 
+  dns cloudflare {$CLOUDFLARE_API_TOKEN}
+}
+```
