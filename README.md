@@ -37,9 +37,14 @@ services:
     
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ./caddy/sites:/srv
-      - ./caddy/data:/data
-      - ./caddy/config:/config
+      - ./caddy/site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+    external: true
+  caddy_config:
 ```
 
 ## Caddyfile
@@ -59,9 +64,9 @@ tls {$ACME_EMAIL} {
 example.com {
 	reverse_proxy server:80
 	
-  tls {$ACME_EMAIL} {
-    dns cloudflare {$CLOUDFLARE_API_TOKEN}
-  }
+	tls {$ACME_EMAIL} {
+    		dns cloudflare {$CLOUDFLARE_API_TOKEN}
+	}
 }
 ```
 
