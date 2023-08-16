@@ -47,7 +47,7 @@ volumes:
   caddy_config:
 ```
 
-Create the external volume with `docker volume create [project-name]_caddy_data`
+Create the external volume with `docker volume create caddy_data`
 
 ## Caddyfile
 
