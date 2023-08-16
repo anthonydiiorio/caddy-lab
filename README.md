@@ -47,6 +47,8 @@ volumes:
   caddy_config:
 ```
 
+Create the external volume with `docker volume create [project-name]_caddy_data`
+
 ## Caddyfile
 
 ### Cloudflare DNS-01 Challenge
