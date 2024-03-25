@@ -32,7 +32,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-      - "443:443/udp"
+      - "443:443/udp" # HTTP/3
       #- "2015:2015" # Metrics
     
     volumes:
